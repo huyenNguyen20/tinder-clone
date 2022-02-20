@@ -1,0 +1,35 @@
+.container {
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+.btn {
+    background-color: #f7f7f7;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.05s linear 0s;
+  }
+  .btn:hover {
+    background-color: #eee;
+  }
+  .btnRight {
+      border-bottom-right-radius: 10px;
+  }
+  .btnLeft {
+    border-bottom-left-radius: 10px;
+    }
+  .buttonContent {
+    display: flex;
+    align-items: center;
+  }
+  .name{
+    margin-left: 5px;
+    font-size: 14px;
+  }
+  
+  .active{
+    background-color: #ddd;
+  }

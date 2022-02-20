@@ -1,0 +1,25 @@
+.container {
+    height: 100%;
+
+}
+.picture {
+    height: 85%;
+    overflow: hidden;
+}
+.image {
+    width: 110%;
+    height: 100%;
+    float: center;
+}
+.name {
+    margin: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #444;
+}
+.action {
+    position: relative;
+    top: -80px;
+    display: flex;
+    justify-content: flex-end;
+}
