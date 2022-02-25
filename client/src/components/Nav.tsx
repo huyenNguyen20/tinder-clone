@@ -8,7 +8,7 @@ import {
 } from "@material-ui/icons";
 import clsx from "clsx";
 
-interface NavProps {
+export interface NavProps {
   handleLike: (event: MouseEvent<HTMLButtonElement>) => void;
   handleDiscover: (event: MouseEvent<HTMLButtonElement>) => void;
   handleMatches: (event: MouseEvent<HTMLButtonElement>) => void;

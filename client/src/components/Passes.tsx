@@ -1,10 +1,6 @@
 import * as React from "react";
-import ImageList from "@mui/material/ImageList";
-import ImageListItem from "@mui/material/ImageListItem";
-import ImageListItemBar from "@mui/material/ImageListItemBar";
 import { User } from "../data/interface";
 import { getAge } from "../lib/utils";
-import { ListSubheader, Typography } from "@mui/material";
 import styles from "../../styles/Pass.module.css";
 
 interface PassedUserProps {
