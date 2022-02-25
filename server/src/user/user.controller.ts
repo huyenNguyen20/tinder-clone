@@ -1,12 +1,4 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body, Param } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { UpdatePassDto } from './dto/update-like-user.dto';
 import { UpdateLikeDto } from './dto/update-pass-user.dto';
@@ -31,13 +23,13 @@ export class UserController {
 
   @ApiOperation({ summary: 'Update Liked List' })
   @Post('/like')
-  async update(@Body() updateLikeUserDto: UpdateLikeDto) {
+  async updateLikedUser(@Body() updateLikeUserDto: UpdateLikeDto) {
     return await this.userService.updateLikeUser(updateLikeUserDto);
   }
 
   @ApiOperation({ summary: 'Update Passed List' })
   @Post('/pass')
-  async remove(@Body() updatePassUserDto: UpdatePassDto) {
+  async updatePassedUser(@Body() updatePassUserDto: UpdatePassDto) {
     return await this.userService.updatePassUser(updatePassUserDto);
   }
 }

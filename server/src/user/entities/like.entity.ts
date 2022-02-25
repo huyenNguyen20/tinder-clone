@@ -6,9 +6,9 @@ export class Like extends BaseEntity {
   @PrimaryColumn()
   userId: string;
 
-  @Column("simple-array")
+  @Column('simple-array')
   likedUserId: string[];
 
-  @OneToOne(() => User, user => user.likeList) // specify inverse side as a second parameter
+  @OneToOne(() => User, (user) => user.likeList) // specify inverse side as a second parameter
   user: User;
 }

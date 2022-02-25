@@ -7,7 +7,9 @@ import { LikeRepository } from './repository/like.repository';
 import { PassRepository } from './repository/pass.respository';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([UserRepository, LikeRepository, PassRepository])],
+  imports: [
+    TypeOrmModule.forFeature([UserRepository, LikeRepository, PassRepository]),
+  ],
   controllers: [UserController],
   providers: [UserService],
 })

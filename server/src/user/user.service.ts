@@ -1,6 +1,10 @@
-import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { In } from "typeorm";
+import { In } from 'typeorm';
 import axios from 'axios';
 import { UpdatePassDto } from './dto/update-like-user.dto';
 import { UpdateLikeDto } from './dto/update-pass-user.dto';
@@ -25,7 +29,7 @@ export class UserService {
   async create(user: User): Promise<void> {
     try {
       const existingUser = await this.userRepository.findOne(user.id);
-      if(!existingUser) await this.userRepository.createUser(user);
+      if (!existingUser) await this.userRepository.createUser(user);
     } catch (e) {
       throw e;
     }
@@ -33,23 +37,39 @@ export class UserService {
 
   async findAll(): Promise<PreviewUser[]> {
     try {
-      const users = await this.userRepository.find(
-        { select: ["id", "title","firstName", "lastName", "picture", "dateOfBirth"] 
+      const users = await this.userRepository.find({
+        select: [
+          'id',
+          'title',
+          'firstName',
+          'lastName',
+          'picture',
+          'dateOfBirth',
+        ],
       });
       //If there is no user in DB, first fetch user list
       if (users.length === 0) {
         const previewUsers = await this.fetchUsers();
-        if (!previewUsers) throw new InternalServerErrorException("Something went wrong! Please try again!");
-        else{
+        if (!previewUsers)
+          throw new InternalServerErrorException(
+            'Something went wrong! Please try again!',
+          );
+        else {
           const fetchUsers = previewUsers.map(async (user: PreviewUser) => {
             const fullUser: User = await this.fetchUser(user.id);
             await this.create(fullUser);
-            return {id: fullUser.id, title: fullUser.title, firstName: fullUser.firstName, lastName: fullUser.lastName,
-            picture: fullUser.picture, dateOfBirth: fullUser.dateOfBirth};
+            return {
+              id: fullUser.id,
+              title: fullUser.title,
+              firstName: fullUser.firstName,
+              lastName: fullUser.lastName,
+              picture: fullUser.picture,
+              dateOfBirth: fullUser.dateOfBirth,
+            };
           });
           const results: PreviewUser[] = await Promise.all(fetchUsers);
           return results;
-        };
+        }
       }
       //Else return all users on DB
       return users;
@@ -58,21 +78,21 @@ export class UserService {
     }
   }
 
-  async findOne(id: string) : Promise<User | null>{
+  async findOne(id: string): Promise<User | null> {
     try {
       const user = await this.userRepository.findOne(id);
-      if(!user) throw new NotFoundException("User Not Found");
+      if (!user) throw new NotFoundException('User Not Found');
       return user;
-    } catch(e){
+    } catch (e) {
       throw e;
     }
   }
 
   async updateLikeUser(updateLikeUserDto: UpdateLikeDto) {
-    const {userId , likedUserId} = updateLikeUserDto;
+    const { userId, likedUserId } = updateLikeUserDto;
     const likedList = await this.likeRepository.findOne(userId);
-    if(likedList){
-      if(!likedList.likedUserId.includes(likedUserId)) {
+    if (likedList) {
+      if (!likedList.likedUserId.includes(likedUserId)) {
         likedList.likedUserId.push(likedUserId);
         await likedList.save();
       }
@@ -81,33 +101,35 @@ export class UserService {
       });
     } else {
       const user = await this.userRepository.findOne(userId);
-      if(!user) throw new NotFoundException("User Not Found")
-      const newLikedList = await this.likeRepository.createLikedList(updateLikeUserDto);
+      if (!user) throw new NotFoundException('User Not Found');
+      const newLikedList = await this.likeRepository.createLikedList(
+        updateLikeUserDto,
+      );
       user.likeList = newLikedList;
       await user.save();
       return await this.userRepository.find({
         id: In([...newLikedList.likedUserId]),
       });
-      
     }
   }
 
   async updatePassUser(updatePassUserDto: UpdatePassDto) {
-    const {userId, passedUserId} = updatePassUserDto;
+    const { userId, passedUserId } = updatePassUserDto;
     const passedList = await this.passRepository.findOne(userId);
-    if(passedList){
-      if(!passedList.passedUserId.includes(passedUserId)) {
+    if (passedList) {
+      if (!passedList.passedUserId.includes(passedUserId)) {
         passedList.passedUserId.push(passedUserId);
         await passedList.save();
       }
       return await this.userRepository.find({
         id: In([...passedList.passedUserId]),
       });
-    }
-    else {
+    } else {
       const user = await this.userRepository.findOne(userId);
-      if(!user) throw new NotFoundException("User Not Found");
-      const newPassedList = await this.passRepository.createPassedList(updatePassUserDto);
+      if (!user) throw new NotFoundException('User Not Found');
+      const newPassedList = await this.passRepository.createPassedList(
+        updatePassUserDto,
+      );
       user.passList = newPassedList;
       await user.save();
       return await this.userRepository.find({

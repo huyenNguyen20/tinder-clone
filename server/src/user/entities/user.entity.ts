@@ -1,4 +1,11 @@
-import { BaseEntity, Column, Entity, PrimaryColumn, OneToOne, JoinColumn } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  PrimaryColumn,
+  OneToOne,
+  JoinColumn,
+} from 'typeorm';
 import { Location } from '../user.interface';
 import { Like } from './like.entity';
 import { Pass } from './pass.entity';
@@ -38,7 +45,7 @@ export class User extends BaseEntity {
   @Column('simple-json')
   location: Location;
 
-  @OneToOne(() => Like, )
+  @OneToOne(() => Like)
   @JoinColumn()
   likeList: Like;
 

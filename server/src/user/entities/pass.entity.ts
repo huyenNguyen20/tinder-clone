@@ -6,9 +6,9 @@ export class Pass extends BaseEntity {
   @PrimaryColumn()
   userId: string;
 
-  @Column("simple-array")
+  @Column('simple-array')
   passedUserId: string[];
 
-  @OneToOne(() => User, user => user.passList) // specify inverse side as a second parameter
+  @OneToOne(() => User, (user) => user.passList) // specify inverse side as a second parameter
   user: User;
 }
