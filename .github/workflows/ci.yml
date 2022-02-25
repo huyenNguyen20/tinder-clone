@@ -26,6 +26,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+    - name: Install packages for backend
+      run: cd server/ && npm install
     - name: Run eslint for backend
       run: cd server/ && npm run lint
     - name: Run test for backend
