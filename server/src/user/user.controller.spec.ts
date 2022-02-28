@@ -1,3 +1,5 @@
+/// <reference types="jest" />
+
 import 'jest';
 import { Test, TestingModule } from '@nestjs/testing';
 import { UpdatePassDto } from './dto/update-like-user.dto';

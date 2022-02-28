@@ -10,5 +10,12 @@ module.exports = {
         tsconfig: "tsconfig.json"
       }
     },
-    snapshotSerializers: ["enzyme-to-json/serializer"]
+    snapshotSerializers: ["enzyme-to-json/serializer"],
+
+    // Problem: Jest is hitting these CSS imports and 
+    // trying to parse them as if they were JavaScript.
+    // Solution: whenver parse .css/less files, parse styleMock.js file instead
+    moduleNameMapper: {
+      '\\.(css|less)$': '<rootDir>/test/jest/__mocks__/styleMock.js',
+    }
   };

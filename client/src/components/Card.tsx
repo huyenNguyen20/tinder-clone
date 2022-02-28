@@ -5,7 +5,7 @@ import styles from "../../styles/Card.module.css";
 import { getUsers, postLikedUser, postPassedUser } from "../data/apis";
 import { User } from "../data/interface";
 import { Discover } from "./Discover";
-import { Nav } from "./Nav";
+import { Nav, NavType } from "./Nav";
 import { Matches } from "./Matches";
 import PassedUser from "./Passes";
 import { Header } from "./Header";
@@ -22,7 +22,7 @@ export function Card() {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [passedUsers, setPassedUsers] = useState<User[]>([]);
   const [matchedUsers, setMatchedUsers] = useState<User[]>([]);
-  const [type, setType] = useState("Discover");
+  const [type, setType] = useState(NavType.Discover);
   const [userIdx, setUserIdx] = useState<number>(0);
   const [alert, setAlert] = useState({ open: false });
 
@@ -41,6 +41,7 @@ export function Card() {
     if (users && userIdx < users.length - 1) setUserIdx(userIdx + 1);
     else setUserIdx(0);
   };
+
   const handleCloseBtn =
     (id: string) => async (event: MouseEvent<HTMLButtonElement>) => {
       incrementUserIndex();
@@ -49,7 +50,8 @@ export function Card() {
         const {users} = await postPassedUser(currentUser.id, id);
         if(users) setPassedUsers(users);
       }
-    };
+  };
+
   const handleLikeBtn =
     (id: string) => async (event: MouseEvent<HTMLButtonElement>) => {
       incrementUserIndex();
@@ -58,14 +60,14 @@ export function Card() {
         if(users) setMatchedUsers(users);
       }
     };
-  const handleLikePage = (event: MouseEvent<HTMLButtonElement>) => {
-    setType("Pass");
+  const handlePassPage = (event: MouseEvent<HTMLButtonElement>) => {
+    setType(NavType.Pass);
   };
   const handleDiscoverPage = (event: MouseEvent<HTMLButtonElement>) => {
-    setType("Discover");
+    setType(NavType.Discover);
   };
   const handleMatchesPage = (event: MouseEvent<HTMLButtonElement>) => {
-    setType("Matches");
+    setType(NavType.Matches);
   };
   return (
     <>
@@ -107,7 +109,7 @@ export function Card() {
         </div>
         <div className={styles.nav}>
           <Nav
-            handleLike={handleLikePage}
+            handlePass={handlePassPage}
             handleDiscover={handleDiscoverPage}
             handleMatches={handleMatchesPage}
             type={type}

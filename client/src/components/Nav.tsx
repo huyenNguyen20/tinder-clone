@@ -1,5 +1,4 @@
 import { MouseEvent } from "react";
-import styles from "../../styles/Nav.module.css";
 import {
   CloseOutlined,
   Favorite,
@@ -7,19 +6,28 @@ import {
   ThumbUp,
 } from "@material-ui/icons";
 import clsx from "clsx";
+import styles from "../../styles/Nav.module.css";
+
+export enum NavType {
+  Pass = "Pass",
+  Discover = "Discover",
+  Matches = "Matches"
+}
 
 export interface NavProps {
-  handleLike: (event: MouseEvent<HTMLButtonElement>) => void;
+  handlePass: (event: MouseEvent<HTMLButtonElement>) => void;
   handleDiscover: (event: MouseEvent<HTMLButtonElement>) => void;
   handleMatches: (event: MouseEvent<HTMLButtonElement>) => void;
-  type: string;
+  type:  NavType;
 }
+
 export function Nav(props: NavProps) {
   return (
     <>
       <div className={styles.container}>
         <button
-          onClick={props.handleLike}
+          id="pass-btn"
+          onClick={props.handlePass}
           className={clsx({
             [styles.btn]: true,
             [styles.btnLeft]: true,
@@ -32,6 +40,7 @@ export function Nav(props: NavProps) {
           </span>
         </button>
         <button
+          id="discover-btn"
           onClick={props.handleDiscover}
           className={clsx({
             [styles.btn]: true,
@@ -44,6 +53,7 @@ export function Nav(props: NavProps) {
           </span>
         </button>
         <button
+          id="matches-btn"
           onClick={props.handleMatches}
           className={clsx({
             [styles.btn]: true,

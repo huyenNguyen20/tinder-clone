@@ -16,15 +16,22 @@ export function Discover(props: DiscoverProps) {
     <>
       <div className={styles.container}>
         <div className={styles.picture}>
-            <img className={styles.image} src={props.user.picture} />
+            <img 
+            id="user-picture"
+            className={styles.image} 
+            alt={props.user.firstName}
+            src={props.user.picture} />
         </div>
         <div className={styles.content}>
-          <p className={styles.name}>
+          <p 
+          id="user-name"
+          className={styles.name}>
             {props.user.firstName} {props.user.lastName},{" "}
-            {getAge(props.user.dateOfBirth)}{" "}
+            {getAge(props.user.dateOfBirth)}
           </p>
           <div className={styles.action}>
             <IconButton
+              id="close-btn"
               onClick={props.handleClose(props.user.id)}
               sx={{ boxShadow: 4 }}
               style={{ backgroundColor: "#fff", marginRight: "5px" }}
@@ -32,6 +39,7 @@ export function Discover(props: DiscoverProps) {
               <Close style={{ color: "red" }} />
             </IconButton>
             <IconButton
+              id="like-btn"
               onClick={props.handleLike(props.user.id)}
               sx={{ boxShadow: 4 }}
               style={{ backgroundColor: "#fff", marginRight: "5px" }}

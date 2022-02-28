@@ -10,10 +10,15 @@ export function Header(props: HeaderProps){
     return(
         <div className={styles.header}>
             <div>
-                <Typography variant="h6">{props.pageName}</Typography>
+                <Typography 
+                id="page-title"
+                variant="h6">
+                    {props.pageName}
+                </Typography>
             </div>
             <div>
                 {props.loggedInUser ? (<Avatar 
+                id="user-avatar"
                 alt={props.loggedInUser.firstName}
                 src={props.loggedInUser.picture}
                 />)
